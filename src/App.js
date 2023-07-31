@@ -2,19 +2,39 @@ import { useState } from "react";
 
 function App() {
   // state (etat, données)
-  const [compteur, setCompteur] = useState(1);
+  const [fruits, setFruits] = useState([
+    { id: 1, nom: "Abricot" },
+    { id: 2, nom: "Banane" },
+    { id: 3, nom: "Cerise" },
+  ]);
 
   // comportements
-  const handlClick = () => {
-    alert("handleClick");
-    setCompteur(compteur + 1);
+  const handleDelete = (id) => {
+    console.log(id);
+    //1. copie du state
+    const fruitsCopy = [...fruits];
+
+    //2. manipuler mon state
+    const fruitsCopyUpdated = fruitsCopy.filter((fruit) => fruit.id !== id);
+
+    //3. modifier mon state avec le setter
+    setFruits(fruitsCopyUpdated);
   };
 
   // affichage (render)
   return (
     <div>
-      <h1>{compteur}</h1>
-      <button onClick={handlClick}>Increment</button>
+      <h1>Liste de fruits</h1>
+      <ul>
+        {fruits.map((fruit) => {
+          return (
+            <li key={fruit.id}>
+              {fruit.nom}{" "}
+              <button onClick={() => handleDelete(fruit.id)}>X</button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
