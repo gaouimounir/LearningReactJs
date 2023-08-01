@@ -1,18 +1,16 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Fruit from "./components/Fruit";
-import FruitForm from "./components/fruitForm";
+import FruitForm from "./components/FruitForm";
 
 function App() {
-  // state (etat, données)
+  // -----------------STATE (etat, données)
   const [fruits, setFruits] = useState([
     { id: 1, nom: "Abricot" },
     { id: 2, nom: "Banane" },
     { id: 3, nom: "Cerise" },
   ]);
 
-  // methode 1 : const inputref = useRef();
-
-  // comportements
+  // ----------------COMPORTEMENT
   const handleDelete = (id) => {
     console.log(id);
     //1. copie du state
@@ -24,10 +22,18 @@ function App() {
     //3. modifier mon state avec le setter
     setFruits(fruitsCopyUpdated);
   };
+  const handleAdd = (fruitAAjouter) => {
+    //1. copie du state
+    const fruitsCopy = [...fruits];
 
-  const handleAdd = (fruitAAjouter) => {};
+    //2. manipulation de la copie
+    fruitsCopy.push(fruitAAjouter);
 
-  // affichage (render)
+    //3. modifier le state avec le setter
+    setFruits(fruitsCopy);
+  };
+
+  // -------------AFFICHAGE (render)
   return (
     <div>
       <h1>Liste de fruits</h1>
@@ -36,7 +42,7 @@ function App() {
           <Fruit fruitInfo={fruit} onFruitDelete={handleDelete} />
         ))}
       </ul>
-      <FruitForm fruits />
+      <FruitForm handleAdd={handleAdd} />
     </div>
   );
 }

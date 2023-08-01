@@ -1,34 +1,26 @@
 import { useState } from "react";
 
-export default function FruitForm(){
+export default function FruitForm({handleAdd}){
 
-    //state
+    //-------------STATE
     const [nouveauFruit, setNouveauFruit] = useState("");
 
-    //comportement
+    //----------COMPORTEMENT
 const handleSubmit = (event) => {
         event.preventDefault();
-        //console.log(inputref.current.value);
-    
-        //1. copie du state
-        const fruitsCopy = [...fruits];
-    
-        //2. manipuler mon state
     
         const id = new Date().getTime();
         const nom = nouveauFruit;
         const fruitAAjouter = { id, nom };
-        fruitsCopy.push(fruitAAjouter);
-    
-        //3. modifier mon state avec le setter
-        setFruits(fruitsCopy);
+        
+        handleAdd(fruitAAjouter);
         setNouveauFruit("");
       };
       const handleChange = (event) => {
         setNouveauFruit(event.target.value);
       };
 
-    //affichage (render)
+    //-----------AFFICHAGE (render)
 
 
 
